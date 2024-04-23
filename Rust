@@ -1,0 +1,132 @@
+// Check if a string is a palindrome
+fn is_palindrome(s: &str) -> bool {
+    s.chars().eq(s.chars().rev())
+}
+
+// Find the index of the first occurrence of a number in a sorted array
+fn first_occurrence(arr: &[i32], target: i32) -> Option<usize> {
+    arr.iter().position(|&x| x == target)
+}
+
+// Find the shortest word in a string of words
+fn shortest_word(s: &str) -> Option<&str> {
+    s.split_whitespace().min_by_key(|&word| word.len())
+}
+
+// Check if a number is prime
+fn is_prime(n: u32) -> bool {
+    if n <= 1 {
+        return false;
+    }
+    for i in 2..=(n as f64).sqrt() as u32 {
+        if n % i == 0 {
+            return false;
+        }
+    }
+    true
+}
+
+// Find the median of a sorted array
+fn median(arr: &[i32]) -> f64 {
+    let mid = arr.len() / 2;
+    if arr.len() % 2 == 0 {
+        (arr[mid - 1] + arr[mid]) as f64 / 2.0
+    } else {
+        arr[mid] as f64
+    }
+}
+
+// Find the longest common prefix of a set of strings
+fn longest_common_prefix(strs: Vec<String>) -> String {
+    if strs.is_empty() {
+        return String::new();
+    }
+    let first = &strs[0];
+    let mut prefix = String::new();
+    'outer: for (i, c) in first.chars().enumerate() {
+        for s in strs.iter().skip(1) {
+            if let Some(ch) = s.chars().nth(i) {
+                if ch != c {
+                    break 'outer;
+                }
+            } else {
+                break 'outer;
+            }
+        }
+        prefix.push(c);
+    }
+    prefix
+}
+
+// Find the kth smallest element in an array
+fn kth_smallest(arr: Vec<i32>, k: usize) -> Option<i32> {
+    let mut sorted_arr = arr.clone();
+    sorted_arr.sort();
+    sorted_arr.get(k - 1).cloned()
+}
+
+// Binary tree node definition
+struct TreeNode {
+    val: i32,
+    left: Option<Box<TreeNode>>,
+    right: Option<Box<TreeNode>>,
+}
+
+// Function to find the maximum depth of a binary tree
+fn max_depth(root: Option<Box<TreeNode>>) -> i32 {
+    match root {
+        Some(node) => {
+            let left_depth = max_depth(node.left);
+            let right_depth = max_depth(node.right);
+            1 + left_depth.max(right_depth)
+        }
+        None => 0,
+    }
+}
+
+// Reverse a string
+fn reverse_string(s: &str) -> String {
+    s.chars().rev().collect()
+}
+
+// Check if a number is prime
+fn is_prime_rust(n: u32) -> bool {
+    if n <= 1 {
+        return false;
+    }
+    for i in 2..=(n as f64).sqrt() as u32 {
+        if n % i == 0 {
+            return false;
+        }
+    }
+    true
+}
+
+// Merge two sorted arrays
+fn merge_sorted_arrays(arr1: Vec<i32>, arr2: Vec<i32>) -> Vec<i32> {
+    let mut merged = Vec::with_capacity(arr1.len() + arr2.len());
+    let (mut i, mut j) = (0, 0);
+    while i < arr1.len() && j < arr2.len() {
+        if arr1[i] < arr2[j] {
+            merged.push(arr1[i]);
+            i += 1;
+        } else {
+            merged.push(arr2[j]);
+            j += 1;
+        }
+    }
+    merged.extend_from_slice(&arr1[i..]);
+    merged.extend_from_slice(&arr2[j..]);
+    merged
+}
+
+// Find the maximum subarray sum
+fn max_subarray_sum(arr: &[i32]) -> i32 {
+    let mut max_ending_here = arr[0];
+    let mut max_so_far = arr[0];
+    for &num in arr.iter().skip(1) {
+        max_ending_here = max_ending_here.max(num);
+        max_so_far = max_so_far.max(max_ending_here);
+    }
+    max_so_far
+}
